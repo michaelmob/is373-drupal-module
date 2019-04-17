@@ -1,1 +1,15 @@
 <?php
+/**
+ * Add is373_drupal_module as a menu item.
+ */
+function is373_drupal_module_menu() {
+    $items['students/add'] = array(
+        'title' => 'NJIT Student Form',
+        'description' => 'Add NJIT Students.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('is373_drupal_module_form'),
+        'access callback' => TRUE
+    );
+
+    return $items;
+}
