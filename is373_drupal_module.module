@@ -16,6 +16,45 @@ function is373_drupal_module_menu() {
 
 
 /**
+ * Select users from 'is373_drupal_module_students' table.
+ */
+function dbtng_students_load() {
+    return db_select('is373_drupal_module_students', 's')
+        ->fields('s', array('full_name', 'ucid'))
+        ->execute();
+}
+
+
+/**
+ * Page to list NJIT students as as table.
+ */
+function is373_drupal_module_list() {
+    $output = '';
+
+    if ($entries = dbtng_students_load()) {
+        $rows = array();
+
+        foreach ($entries as $entry)
+            $rows[] = array_map('check_plain', (array) $entry);
+
+        $header = array(
+            t('Name'),
+            t('UCID'),
+        );
+
+        $output .= theme('table', array(
+            'header' => $header,
+            'rows' => $rows,
+        ));
+    }
+    else
+        drupal_set_message(t('No entries have been added yet.'));
+
+    return $output;
+}
+
+
+/**
  * Form to add NJIT students.
  */
 function is373_drupal_module_form($form, &$form_state) {
