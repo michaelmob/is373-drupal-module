@@ -42,6 +42,23 @@ function is373_drupal_module_form($form, &$form_state) {
 
 
 /**
+ * Validate NJIT student form submission.
+ * - Ensure no duplicate UCIDs.
+ */
+function is373_drupal_module_form_validate($form, &$form_state) {
+    $countStr = db_select('is373_drupal_module_students')
+        ->fields(NULL, array('ucid'))
+        ->condition('ucid', $form['ucid']['#value'])
+        ->countQuery()
+        ->execute()
+        ->fetchField();
+
+    if (intval($countStr) > 0)
+        form_set_error('ucid', t('UCID already exists!'));
+}
+
+
+/**
  * Add NJIT student to 'is373_drupal_module_students' database table.
  */
 function is373_drupal_module_form_submit($form, &$form_state) {
