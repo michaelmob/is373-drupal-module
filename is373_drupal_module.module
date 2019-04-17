@@ -39,3 +39,17 @@ function is373_drupal_module_form($form, &$form_state) {
 
     return $form;
 }
+
+
+/**
+ * Add NJIT student to 'is373_drupal_module_students' database table.
+ */
+function is373_drupal_module_form_submit($form, &$form_state) {
+    drupal_set_message(t('NJIT Student added!'));
+    db_insert('is373_drupal_module_students')
+        ->fields(array(
+            'full_name' => $form['full_name']['#value'],
+            'ucid' => $form['ucid']['#value'],
+        ))
+        ->execute();
+}
