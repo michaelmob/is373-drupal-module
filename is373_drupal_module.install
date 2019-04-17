@@ -1,0 +1,35 @@
+<?php
+/*
+ * NJIT Students schema.
+ */
+function is373_drupal_module_schema() {
+    $schema['is373_drupal_module_students'] = array(
+        'description' => 'The table for student names and UCIDs.',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for a student.',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'full_name' => array(
+                'description' => 'The full name of the student.',
+                'length' => 255,
+                'type' => 'varchar',
+                'not null' => TRUE
+            ),
+            'ucid' => array(
+                'description' => 'The UCID of the student.',
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE
+            ),
+        ),
+        'unique keys' => array(
+            'id_ucid' => array('id', 'ucid'),
+            'ucid' => array('ucid')
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}
