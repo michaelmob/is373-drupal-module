@@ -11,6 +11,13 @@ function is373_drupal_module_menu() {
         'access callback' => TRUE
     );
 
+    $items['students/list'] = array(
+        'title' => 'NJIT Student List',
+        'description' => 'List NJIT students.',
+        'page callback' => 'is373_drupal_module_list',
+        'access callback' => TRUE
+    );
+
     return $items;
 }
 
