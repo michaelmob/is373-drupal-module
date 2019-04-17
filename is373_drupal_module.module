@@ -13,3 +13,29 @@ function is373_drupal_module_menu() {
 
     return $items;
 }
+
+
+/**
+ * Form to add NJIT students.
+ */
+function is373_drupal_module_form($form, &$form_state) {
+    $form['full_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Full Name'),
+        '#maxlength' => 255,
+        '#required' => TRUE,
+    );
+    $form['ucid'] = array(
+        '#type' => 'textfield',
+        '#title' => t('UCID'),
+        '#maxlength' => 32,
+        '#required' => TRUE,
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Add Student'),
+    );
+
+    return $form;
+}
